@@ -1,60 +1,179 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="edu_hub.list">
-      <field name="name">edu_hub list</field>
-      <field name="model">edu_hub.edu_hub</field>
+
+    <!-- Student -->
+    <record model="ir.ui.view" id="edu_hub.student_list">
+      <field name="name">edu_hub student list</field>
+      <field name="model">edu_hub.student</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+            <field name="file_number"/>
+            <field name="name"/>
+            <field name="last_name"/>
+            <field name="email"/>
         </tree>
       </field>
     </record>
--->
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="edu_hub.action_window">
-      <field name="name">edu_hub window</field>
-      <field name="res_model">edu_hub.edu_hub</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="edu_hub.action_server">
-      <field name="name">edu_hub server</field>
-      <field name="model_id" ref="model_edu_hub_edu_hub"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
+    <!-- Program -->
+    <record model="ir.ui.view" id="edu_hub.program_list">
+      <field name="name">edu_hub program list</field>
+      <field name="model">edu_hub.program</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="description"/>
+        </tree>
       </field>
     </record>
--->
+
+  <!-- explicit kanban view definition -->
+
+  <!-- Student -->
+  <record model="ir.ui.view" id="edu_hub.student_kanban">
+      <field name="name">edu_hub student kanban</field>
+      <field name="model">edu_hub.student</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <templates>
+              <t t-name="kanban-box">
+                <div class="oe_kanban_global_click card">
+                  <div class="card-header d-flex justify-content-between aling-items-center">
+                    <strong class="text-primary">
+                      <i class="fa fa-user me-2"></i>
+                      <field name="name"/> <field name="last_name"/>
+                    </strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="mt-2">
+                      <i class="fa fa-envelope me-2"></i>
+                      <field name="email"/>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <strong class="text-info">
+                      File number: <field name="file_number"/>
+                    </strong>
+                  </div>
+                </div>
+              </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Program -->
+    <record model="ir.ui.view" id="edu_hub.program_kanban">
+      <field name="name">edu_hub program kanban</field>
+      <field name="model">edu_hub.program</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <templates>
+              <t t-name="kanban-box">
+                <div class="oe_kanban_global_click card">
+                  <div class="card-header d-flex justify-content-between aling-items-center">
+                    <strong class="text-primary">
+                      <i class="fa fa-bookmark me-2"></i>
+                      <field name="name"/>
+                    </strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="mt-2">
+                      <i class="fa fa-info me-2"></i>
+                      <field name="description"/>
+                    </div>
+                  </div>
+                </div>
+              </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+  <!-- explicit form view definition -->
+
+    <!-- Student -->
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">edu_hub student form</field>
+        <field name="model">edu_hub.student</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                <group>
+                  <group>
+                      <field name="name"/>
+                      <field name="last_name"/>
+                      <field name="file_number"/>
+                      <field name="email"/>
+                  </group>
+                  <group>
+                      <field name="phone"/>
+                      <field name="address"/>
+                      <field name="birthdate"/>
+                      <field name="country_id"/>
+                  </group>
+                </group>
+                <group name="inscriptions" string="Inscriptions">
+                  <field name="program"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Program -->
+    <record id="view_program_form" model="ir.ui.view">
+        <field name="name">edu_hub program form</field>
+        <field name="model">edu_hub.program</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+                <group name="inscriptions" string="Inscriptions">
+                  <field name="student"/>
+                </group>
+              </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <!-- Student -->
+    <record model="ir.actions.act_window" id="edu_hub.student_action_window">
+      <field name="name">Student</field>
+      <field name="res_model">edu_hub.student</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- Program -->
+    <record model="ir.actions.act_window" id="edu_hub.program_action_window">
+      <field name="name">Program</field>
+      <field name="res_model">edu_hub.program</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
 
     <!-- Top menu item -->
-<!--
-    <menuitem name="edu_hub" id="edu_hub.menu_root"/>
--->
+
+    <menuitem name="EduHub" id="edu_hub.menu_root"/>
+
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="edu_hub.menu_1" parent="edu_hub.menu_root"/>
-    <menuitem name="Menu 2" id="edu_hub.menu_2" parent="edu_hub.menu_root"/>
--->
+
+    <menuitem name="Administration" id="edu_hub.menu_1" parent="edu_hub.menu_root"/>
+
     <!-- actions -->
-<!--
-    <menuitem name="List" id="edu_hub.menu_1_list" parent="edu_hub.menu_1"
-              action="edu_hub.action_window"/>
-    <menuitem name="Server to list" id="edu_hub" parent="edu_hub.menu_2"
-              action="edu_hub.action_server"/>
--->
+
+    <!-- Student -->
+    <menuitem name="Student" id="edu_hub.student_menu_1_list" parent="edu_hub.menu_1"
+              action="edu_hub.student_action_window"/>
+
+    <!-- Program -->
+    <menuitem name="Program" id="edu_hub.program_menu_1_list" parent="edu_hub.menu_1"
+              action="edu_hub.program_action_window"/>
+
   </data>
 </odoo>

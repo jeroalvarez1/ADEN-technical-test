@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
-# from odoo import http
+import json
+from odoo import http
+from odoo.http import request
 
 
-# class EduHub(http.Controller):
-#     @http.route('/edu_hub/edu_hub', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+class EduHub(http.Controller):
 
-#     @http.route('/edu_hub/edu_hub/objects', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('edu_hub.listing', {
-#             'root': '/edu_hub/edu_hub',
-#             'objects': http.request.env['edu_hub.edu_hub'].search([]),
-#         })
-
-#     @http.route('/edu_hub/edu_hub/objects/<model("edu_hub.edu_hub"):obj>', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('edu_hub.object', {
-#             'object': obj
-#         })
+    @http.route('/edu_hub/program/<int:program_id>/students', auth='public', type='http', website=True, methods=['GET'], csrf=False)
+    def get_program_students(self, program_id, **kwargs):
+        try:
+            students = request.env['edu_hub.student'].sudo().search([('program', 'in', [program_id])])
+            student_data = [{
+                'name': student.name,
+                'last_name': student.last_name,
+                'file_number': student.file_number,
+                'birthdate': f'{student.birthdate}',
+                'email': student.email,
+                'phone': student.phone if student.phone else None,
+                'country': {
+                    'id': student.country_id.id,
+                    'name': student.country_id.name
+                }
+            } for student in students]
+            return json.dumps(student_data)
+        except Exception as e:
+            return json.dumps({'error': str(e)})

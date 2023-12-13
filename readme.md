@@ -1,32 +1,19 @@
-# Instalación de Odoo 16 con docker-compose
+# Instalación del proyecto de "Prueba técnica ADEN" con Odoo 16
 ### Requisitos
 * Tener instalado docker y docker-compose
 
 ### Pasos
-1. Duplicar y renombrar: 
-    * Duplicar copy.odoo-postgres.docker-compose.yaml y renombrar la copia con el nombre docker-compose.yaml.
-    * Duplicar copy.env y renombrar la copia con el nombre .env.
-    * Duplicar odoo.conf.copy y renombrar la copia con el nombre odoo.conf.
-
-    Es importante no editar ni renombrar los archivos que contengan el nombre la palabra copy, ya que estos forman parte de tu plantilla.
-2. Establece los parámetros de tu instancia en el archivo .env
-3. Establece los parámetros de tu instancia en el archivo config/odoo.conf
-    * los parámetros DB_HOST,DB_PASSWD y DB_USER, se establecen en .env. Estos tambien se configuran en el archivo odoo.conf 
-    * Si estas en producción el parámetro ADMIN_PASSWD de odoo.conf debe ser uno seguro, ya que con este parámetro se gestionan las base de datos.
-4. Ejecución con docker-compose
-En la misma raiz del proyecto donde se encuentra docker-compose.yaml, debes ejecutar:
-    * La primera vez descargará las imagenes de odoo y postgres, esto puede demorar varios minutos.
-    * Las siguientes ejecuciones deberá demorar solo segundos para iniciarse.
-
+1. Ejecución
+En la raiz del proyecto donde se encuentra docker-compose.yaml, ejecute:
     ~~~~
     docker-compose up -d
     ~~~~
-    
-    
-5. Ingresa a Odoo
-    * El parámetro WEB_PORT lo definiste en el archivo .env
-    * Ingresa a localhost:<WEB_PORT>
-    * Siendo la primera vez que ingresas al sistema, el sistema te mostrará un formulario para que puedas crear una base de datos.
 
-### Contáctanos
-Si has tenido alguna dificultad en alguno de estos pasos o tienes consultas, puedes contactarnos al correo hola@bigodoo.com y con gusto te brindaremos una asesoría.
+    
+2. Ingresa a Odoo
+    * Ingresa a localhost:<WEB_PORT> (En el puerto usted definira si quiere acceder a la pagina web o a la base de datos port:80 para bd y port:8085 para pagina web)
+    * Si es la primera vez que ingresa al sistema complete el formulario de creación de la base de datos. Contáctanos
+
+
+3. Consulta a la API:
+    * Si usted desea hacer una consulta a la api para saber cuentos Students hay en x Program ingrese la siguiente url: http://localhost:8085/edu_hub/program/<int:program_id>/students
