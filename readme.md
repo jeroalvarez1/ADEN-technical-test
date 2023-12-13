@@ -16,4 +16,4 @@ En la raiz del proyecto donde se encuentra docker-compose.yaml, ejecute:
 
 
 3. Consulta a la API:
-    * Si usted desea hacer una consulta a la api para saber cuentos Students hay en x Program ingrese la siguiente url: http://localhost:8085/edu_hub/program/<int:program_id>/students
+    * Si usted desea hacer una consulta a la api para saber cuantos Students hay en x Program ingrese la siguiente url: http://localhost:8085/edu_hub/program/<int:program_id>/students
