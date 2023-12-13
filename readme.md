@@ -12,7 +12,7 @@ En la raiz del proyecto donde se encuentra docker-compose.yaml, ejecute:
     
 2. Ingresa a Odoo
     * Ingresa a localhost:<WEB_PORT> (En el puerto usted definira si quiere acceder a la pagina web o a la base de datos port:80 para bd y port:8085 para pagina web)
-    * Si es la primera vez que ingresa al sistema complete el formulario de creación de la base de datos. Contáctanos
+    * Si es la primera vez que ingresa al sistema complete el formulario de creación de la base de datos.
 
 
 3. Consulta a la API:
