@@ -28,6 +28,21 @@
       </field>
     </record>
 
+    <!-- Inscription -->
+    <record model="ir.ui.view" id="edu_hub.inscription_list">
+      <field name="name">edu_hub inscription list</field>
+      <field name="model">edu_hub.inscription</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="student_id"/>
+            <field name="program_id"/>
+            <field name="is_active"/>
+            <field name="activation_date"/>
+            <field name="desactivation_date"/>
+        </tree>
+      </field>
+    </record>
+
   <!-- explicit kanban view definition -->
 
   <!-- Student -->
@@ -115,7 +130,15 @@
                   </group>
                 </group>
                 <group name="inscriptions" string="Inscriptions">
-                  <field name="program"/>
+                  <field name="inscription_ids">
+                    <form>
+                      <group>
+                        <field name="student_id" readonly="1"/>
+                        <field name="program_id"/>
+                        <field name="is_active"/>
+                      </group>
+                    </form>
+                  </field>
                 </group>
               </sheet>
             </form>
@@ -134,7 +157,34 @@
                     <field name="description"/>
                 </group>
                 <group name="inscriptions" string="Inscriptions">
-                  <field name="student"/>
+                  <field name="inscription_ids">
+                    <form>
+                      <group>
+                        <field name="program_id" readonly="1"/>
+                        <field name="student_id"/>
+                        <field name="is_active"/>
+                      </group>
+                    </form>
+                  </field>
+                </group>
+              </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inscription -->
+    <record id="view_inscription_form" model="ir.ui.view">
+        <field name="name">edu_hub inscription form</field>
+        <field name="model">edu_hub.inscription</field>
+        <field name="arch" type="xml">
+            <form>
+              <sheet>
+                <group>
+                  <field name="student_id"/>
+                  <field name="program_id"/>
+                  <field name="is_active"/>
+                  <field name="activation_date" readonly="1"/>
+                  <field name="desactivation_date" readonly="1"/>
                 </group>
               </sheet>
             </form>
@@ -157,6 +207,13 @@
       <field name="view_mode">tree,form,kanban</field>
     </record>
 
+    <!-- Inscription -->
+    <record model="ir.actions.act_window" id="edu_hub.inscription_action_window">
+      <field name="name">Inscription</field>
+      <field name="res_model">edu_hub.inscription</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- Top menu item -->
 
     <menuitem name="EduHub" id="edu_hub.menu_root"/>
@@ -174,6 +231,10 @@
     <!-- Program -->
     <menuitem name="Program" id="edu_hub.program_menu_1_list" parent="edu_hub.menu_1"
               action="edu_hub.program_action_window"/>
+
+    <!-- Inscription -->
+    <menuitem name="Inscription" id="edu_hub.inscription_menu_1_list" parent="edu_hub.menu_1"
+              action="edu_hub.inscription_action_window"/>
 
   </data>
 </odoo>
