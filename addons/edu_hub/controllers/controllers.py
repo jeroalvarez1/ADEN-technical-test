@@ -9,7 +9,7 @@ class EduHub(http.Controller):
     @http.route('/edu_hub/program/<int:program_id>/students', auth='public', type='http', website=True, methods=['GET'], csrf=False)
     def get_program_students(self, program_id, **kwargs):
         try:
-            students = request.env['edu_hub.student'].sudo().search([('program', 'in', [program_id])])
+            students = request.env['edu_hub.student'].sudo().search([('inscription_ids.program_id', 'in', [program_id])])
             student_data = [{
                 'name': student.name,
                 'last_name': student.last_name,
